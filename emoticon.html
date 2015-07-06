@@ -1,0 +1,341 @@
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">db_host</span> <span class="o">=</span> <span class="s">&#39;118.163.94.26&#39;</span>
+<span class="n">db_user</span> <span class="o">=</span> <span class="s">&#39;joekaojoekao&#39;</span>
+<span class="n">db_pass</span> <span class="o">=</span> <span class="s">&#39;iloveinalin&#39;</span>
+<span class="n">db_name</span> <span class="o">=</span> <span class="s">&#39;facemood&#39;</span>
+<span class="kn">import</span> <span class="nn">MySQLdb</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">db_host</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">db_user</span><span class="p">,</span> <span class="n">passwd</span><span class="o">=</span><span class="n">db_pass</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="n">db_name</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s">&quot;utf8&quot;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;select id, name from types&quot;</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">dict_type</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="n">type_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">dict_type</span><span class="p">[</span><span class="n">type_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+
+<span class="c">#print dict_type</span>
+    
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="s">&quot;select word, type_id, likes, count(distinct word) from words group by word&quot;</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="n">dict_emo</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="n">word</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">type_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">likes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="c">#print word, type_id</span>
+    <span class="n">dict_emo</span><span class="p">[</span><span class="n">dict_type</span><span class="p">[</span><span class="n">type_id</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">word</span><span class="p">,</span><span class="n">likes</span><span class="p">))</span>
+<span class="c">#import json</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="c">#print dict_emo.values()[0]</span>
+<span class="n">sorted_emo</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="c">#data.sort(key=itemgetter(1))</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dict_emo</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">sorted_emo</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dict_emo</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
+<span class="c">#sorted_emo = sorted(dict_emo, key=itemgetter(1))</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;emoticon.txt&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">sorted_emo</span><span class="p">,</span> <span class="n">fout</span><span class="p">)</span>
+
+    
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sorted_emo</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>60
+1
+1
+4
+22
+1
+23
+6
+6
+4
+1
+1
+3
+1
+7
+1
+2
+1
+2
+26
+7
+1
+10
+6
+1
+28
+1
+1
+8
+2
+1
+2
+1
+171
+1
+23
+2
+1
+49
+1
+21
+1
+2
+1
+2
+1
+4
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">StaticInteract</span><span class="p">,</span> <span class="n">RangeWidget</span><span class="p">,</span> <span class="n">RadioWidget</span><span class="p">,</span> <span class="n">DropDownWidget</span>
+
+<span class="k">def</span> <span class="nf">operation</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">fruit</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s">&quot;multiply&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&quot;{0} * {1} = {2} {3}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="n">fruit</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s">&quot;add&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&quot;{0} + {1} = {2} {3}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">fruit</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span>
+
+<span class="n">StaticInteract</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span>
+               <span class="n">a</span><span class="o">=</span><span class="n">RangeWidget</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+               <span class="n">b</span><span class="o">=</span><span class="n">RangeWidget</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+               <span class="n">op</span><span class="o">=</span><span class="n">RadioWidget</span><span class="p">([</span><span class="s">&quot;s&quot;</span><span class="p">,</span> <span class="s">&quot;gg&quot;</span><span class="p">]),</span>
+               <span class="n">fruit</span><span class="o">=</span><span class="n">DropDownWidget</span><span class="p">([]))</span>
+        
+<span class="c"># droplist = [x.decode(&#39;utf-8&#39;,&#39;ignore&#39;) for x in sorted_emo.keys()]</span>
+
+
+
+<span class="c"># StaticInteract(operation,</span>
+<span class="c">#                a=RangeWidget(0, 10),</span>
+<span class="c">#                b=RangeWidget(0, 10),</span>
+<span class="c">#                op=RadioWidget([&quot;multiply&quot;, &quot;add&quot;]),</span>
+<span class="c">#                fruit=DropDownWidget(droplist)</span>
+<span class="c">#                )</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">IndexError</span>                                Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-82-817a29ecf082&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">     13</span>                b<span class="ansiyellow">=</span>RangeWidget<span class="ansiyellow">(</span><span class="ansicyan">0</span><span class="ansiyellow">,</span> <span class="ansicyan">10</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span><span class="ansiyellow"></span>
+<span class="ansigreen">     14</span>                op<span class="ansiyellow">=</span>RadioWidget<span class="ansiyellow">(</span><span class="ansiyellow">[</span><span class="ansiblue">&quot;s&quot;</span><span class="ansiyellow">,</span> <span class="ansiblue">&quot;gg&quot;</span><span class="ansiyellow">]</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span><span class="ansiyellow"></span>
+<span class="ansigreen">---&gt; 15</span><span class="ansiyellow">                fruit=DropDownWidget([]))
+</span><span class="ansigreen">     16</span> <span class="ansiyellow"></span>
+<span class="ansigreen">     17</span> <span class="ansired"># droplist = [x.decode(&apos;utf-8&apos;,&apos;ignore&apos;) for x in sorted_emo.keys()]</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+
+<span class="ansigreen">/usr/local/lib/python2.7/site-packages/ipywidgets/widgets.pyc</span> in <span class="ansicyan">__init__</span><span class="ansiblue">(self, values, name, labels, default, divclass, delimiter)</span>
+<span class="ansigreen">     89</span> <span class="ansiyellow"></span>
+<span class="ansigreen">     90</span>         <span class="ansigreen">if</span> default <span class="ansigreen">is</span> None<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">---&gt; 91</span><span class="ansiyellow">             </span>self<span class="ansiyellow">.</span>default <span class="ansiyellow">=</span> values<span class="ansiyellow">[</span><span class="ansicyan">0</span><span class="ansiyellow">]</span><span class="ansiyellow"></span>
+<span class="ansigreen">     92</span>         <span class="ansigreen">elif</span> default <span class="ansigreen">in</span> values<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">     93</span>             self<span class="ansiyellow">.</span>default <span class="ansiyellow">=</span> default<span class="ansiyellow"></span>
+
+<span class="ansired">IndexError</span>: list index out of range</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">IPython.html</span> <span class="kn">import</span> <span class="n">widgets</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="n">geo</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;USA&#39;</span><span class="p">:[</span><span class="s">&#39;CHI&#39;</span><span class="p">,</span><span class="s">&#39;NYC&#39;</span><span class="p">],</span><span class="s">&#39;Russia&#39;</span><span class="p">:[</span><span class="s">&#39;MOW&#39;</span><span class="p">,</span><span class="s">&#39;LED&#39;</span><span class="p">]}</span>
+
+<span class="k">def</span> <span class="nf">print_city</span><span class="p">(</span><span class="n">city</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">city</span>
+
+<span class="k">def</span> <span class="nf">select_city</span><span class="p">(</span><span class="n">country</span><span class="p">):</span>
+    <span class="n">cityW</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">geo</span><span class="p">[</span><span class="n">country</span><span class="p">]</span>
+
+
+<span class="n">scW</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">geo</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">init</span> <span class="o">=</span> <span class="n">scW</span><span class="o">.</span><span class="n">value</span>
+<span class="n">cityW</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">geo</span><span class="p">[</span><span class="n">init</span><span class="p">])</span>
+<span class="n">j</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">print_city</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="n">cityW</span><span class="p">)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">select_city</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="n">scW</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MOW
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">IPython.html.widgets</span> <span class="kn">import</span> <span class="n">interact</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">x</span>
+<span class="n">interact</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="p">{</span><span class="s">u&quot;台北市&quot;</span><span class="p">:</span><span class="s">&quot;02&quot;</span><span class="p">,</span> <span class="s">u&quot;台中市&quot;</span><span class="p">:</span><span class="s">&quot;04&quot;</span><span class="p">});</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>02
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">os</span> 
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&quot;echo &#39;Hello World!&#39; | pbcopy&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[62]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>32512</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
